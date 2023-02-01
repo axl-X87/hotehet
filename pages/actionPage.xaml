@@ -1,0 +1,59 @@
+﻿<Page x:Class="hotehet.pages.actionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:hotehet.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="actionPage">
+
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Авторизация" Grid.ColumnSpan="2"
+                   TextAlignment="center"
+                   VerticalAlignment="Center"
+                   FontSize="32"
+                   FontFamily="Lucida Console"
+                   Foreground="White"/>
+        <Grid Grid.Column="1"
+              Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="для сброса пароля введите свой email" TextWrapping="Wrap" VerticalAlignment="Center"
+                   FontSize="20"
+                   FontFamily="Lucida Console"
+                   Foreground="White"
+                       HorizontalAlignment="Center"/>
+            <TextBox Height="50" Grid.Column="1" Grid.Row="0" BorderBrush="white" Background="black" BorderThickness="3" FontFamily="Lucida Cnosole" Foreground="white" FontSize="20" TextAlignment="Center" Name="email_tb"/>
+        </Grid>
+        <Button Grid.Row="2"
+                Height="50"
+                Width="180"
+                Background="Black"
+                Foreground="white"
+                FontFamily="Lucida Console"
+                BorderBrush="white"
+                BorderThickness="3"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                Content="Сбросить"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                Name="reset_password"
+                Click="reset_password_Click"/>
+    </Grid>
+</Page>

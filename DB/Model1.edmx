@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище aaaaHotelModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pasport" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="dateStart" Type="date" />
+          <Property Name="dateEnd" Type="date" />
+          <Property Name="idNumber" Type="int" />
+          <Property Name="place" Type="int" />
+          <Property Name="zachem" Type="nvarchar" MaxLength="150" />
+          <Property Name="fromOrganizationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="ph_number" Type="int" />
+        </EntityType>
+        <EntityType Name="Number">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idNumberCLass" Type="int" />
+          <Property Name="amountPlaces" Type="int" />
+          <Property Name="isFree" Type="bit" />
+          <Property Name="dateRelace" Type="date" />
+          <Property Name="dailyPrice" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="NumberClass">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Quitance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idNumber" Type="int" />
+          <Property Name="idClient" Type="int" />
+          <Property Name="cost" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="SummaryTable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idNumber" Type="int" />
+          <Property Name="idClient" Type="int" />
+          <Property Name="dateEnd" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Client_Number">
+          <End Role="Number" Type="Self.Number" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Number">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="idNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Number_NumberClass">
+          <End Role="NumberClass" Type="Self.NumberClass" Multiplicity="0..1" />
+          <End Role="Number" Type="Self.Number" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NumberClass">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Number">
+              <PropertyRef Name="idNumberCLass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quitance_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Quitance" Type="Self.Quitance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Quitance">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quitance_Number">
+          <End Role="Number" Type="Self.Number" Multiplicity="0..1" />
+          <End Role="Quitance" Type="Self.Quitance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Number">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Quitance">
+              <PropertyRef Name="idNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SummaryTable_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="SummaryTable" Type="Self.SummaryTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SummaryTable">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SummaryTable_Number">
+          <End Role="Number" Type="Self.Number" Multiplicity="0..1" />
+          <End Role="SummaryTable" Type="Self.SummaryTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Number">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SummaryTable">
+              <PropertyRef Name="idNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище aaaaHotelModelContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Number" EntityType="Self.Number" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NumberClass" EntityType="Self.NumberClass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quitance" EntityType="Self.Quitance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SummaryTable" EntityType="Self.SummaryTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Client_Number" Association="Self.FK_Client_Number">
+            <End Role="Number" EntitySet="Number" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Number_NumberClass" Association="Self.FK_Number_NumberClass">
+            <End Role="NumberClass" EntitySet="NumberClass" />
+            <End Role="Number" EntitySet="Number" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quitance_Client" Association="Self.FK_Quitance_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Quitance" EntitySet="Quitance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quitance_Number" Association="Self.FK_Quitance_Number">
+            <End Role="Number" EntitySet="Number" />
+            <End Role="Quitance" EntitySet="Quitance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SummaryTable_Client" Association="Self.FK_SummaryTable_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="SummaryTable" EntitySet="SummaryTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SummaryTable_Number" Association="Self.FK_SummaryTable_Number">
+            <End Role="Number" EntitySet="Number" />
+            <End Role="SummaryTable" EntitySet="SummaryTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="aaaaHotelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pasport" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dateStart" Type="DateTime" Precision="0" />
+          <Property Name="dateEnd" Type="DateTime" Precision="0" />
+          <Property Name="idNumber" Type="Int32" />
+          <Property Name="place" Type="Int32" />
+          <Property Name="zachem" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="fromOrganizationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ph_number" Type="Int32" />
+          <NavigationProperty Name="Number" Relationship="Self.FK_Client_Number" FromRole="Client" ToRole="Number" />
+          <NavigationProperty Name="Quitance" Relationship="Self.FK_Quitance_Client" FromRole="Client" ToRole="Quitance" />
+          <NavigationProperty Name="SummaryTable" Relationship="Self.FK_SummaryTable_Client" FromRole="Client" ToRole="SummaryTable" />
+        </EntityType>
+        <EntityType Name="Number">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idNumberCLass" Type="Int32" />
+          <Property Name="amountPlaces" Type="Int32" />
+          <Property Name="isFree" Type="Boolean" />
+          <Property Name="dateRelace" Type="DateTime" Precision="0" />
+          <Property Name="dailyPrice" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Client_Number" FromRole="Number" ToRole="Client" />
+          <NavigationProperty Name="NumberClass" Relationship="Self.FK_Number_NumberClass" FromRole="Number" ToRole="NumberClass" />
+          <NavigationProperty Name="Quitance" Relationship="Self.FK_Quitance_Number" FromRole="Number" ToRole="Quitance" />
+          <NavigationProperty Name="SummaryTable" Relationship="Self.FK_SummaryTable_Number" FromRole="Number" ToRole="SummaryTable" />
+        </EntityType>
+        <EntityType Name="NumberClass">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Number" Relationship="Self.FK_Number_NumberClass" FromRole="NumberClass" ToRole="Number" />
+        </EntityType>
+        <EntityType Name="Quitance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idNumber" Type="Int32" />
+          <Property Name="idClient" Type="Int32" />
+          <Property Name="cost" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Quitance_Client" FromRole="Quitance" ToRole="Client" />
+          <NavigationProperty Name="Number" Relationship="Self.FK_Quitance_Number" FromRole="Quitance" ToRole="Number" />
+        </EntityType>
+        <EntityType Name="SummaryTable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idNumber" Type="Int32" />
+          <Property Name="idClient" Type="Int32" />
+          <Property Name="dateEnd" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_SummaryTable_Client" FromRole="SummaryTable" ToRole="Client" />
+          <NavigationProperty Name="Number" Relationship="Self.FK_SummaryTable_Number" FromRole="SummaryTable" ToRole="Number" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Client_Number">
+          <End Role="Number" Type="Self.Number" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Number">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="idNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quitance_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Quitance" Type="Self.Quitance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Quitance">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SummaryTable_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="SummaryTable" Type="Self.SummaryTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SummaryTable">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Number_NumberClass">
+          <End Role="NumberClass" Type="Self.NumberClass" Multiplicity="0..1" />
+          <End Role="Number" Type="Self.Number" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NumberClass">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Number">
+              <PropertyRef Name="idNumberCLass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quitance_Number">
+          <End Role="Number" Type="Self.Number" Multiplicity="0..1" />
+          <End Role="Quitance" Type="Self.Quitance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Number">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Quitance">
+              <PropertyRef Name="idNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SummaryTable_Number">
+          <End Role="Number" Type="Self.Number" Multiplicity="0..1" />
+          <End Role="SummaryTable" Type="Self.SummaryTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Number">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SummaryTable">
+              <PropertyRef Name="idNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="aaaaHotelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Number" EntityType="Self.Number" />
+          <EntitySet Name="NumberClass" EntityType="Self.NumberClass" />
+          <EntitySet Name="Quitance" EntityType="Self.Quitance" />
+          <EntitySet Name="SummaryTable" EntityType="Self.SummaryTable" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_Client_Number" Association="Self.FK_Client_Number">
+            <End Role="Number" EntitySet="Number" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quitance_Client" Association="Self.FK_Quitance_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Quitance" EntitySet="Quitance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SummaryTable_Client" Association="Self.FK_SummaryTable_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="SummaryTable" EntitySet="SummaryTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Number_NumberClass" Association="Self.FK_Number_NumberClass">
+            <End Role="NumberClass" EntitySet="NumberClass" />
+            <End Role="Number" EntitySet="Number" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quitance_Number" Association="Self.FK_Quitance_Number">
+            <End Role="Number" EntitySet="Number" />
+            <End Role="Quitance" EntitySet="Quitance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SummaryTable_Number" Association="Self.FK_SummaryTable_Number">
+            <End Role="Number" EntitySet="Number" />
+            <End Role="SummaryTable" EntitySet="SummaryTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище aaaaHotelModelContainer" CdmEntityContainer="aaaaHotelEntities">
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="aaaaHotelModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pasport" ColumnName="pasport" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="dateStart" ColumnName="dateStart" />
+                <ScalarProperty Name="dateEnd" ColumnName="dateEnd" />
+                <ScalarProperty Name="idNumber" ColumnName="idNumber" />
+                <ScalarProperty Name="place" ColumnName="place" />
+                <ScalarProperty Name="zachem" ColumnName="zachem" />
+                <ScalarProperty Name="fromOrganizationName" ColumnName="fromOrganizationName" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="ph_number" ColumnName="ph_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Number">
+            <EntityTypeMapping TypeName="aaaaHotelModel.Number">
+              <MappingFragment StoreEntitySet="Number">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idNumberCLass" ColumnName="idNumberCLass" />
+                <ScalarProperty Name="amountPlaces" ColumnName="amountPlaces" />
+                <ScalarProperty Name="isFree" ColumnName="isFree" />
+                <ScalarProperty Name="dateRelace" ColumnName="dateRelace" />
+                <ScalarProperty Name="dailyPrice" ColumnName="dailyPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NumberClass">
+            <EntityTypeMapping TypeName="aaaaHotelModel.NumberClass">
+              <MappingFragment StoreEntitySet="NumberClass">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quitance">
+            <EntityTypeMapping TypeName="aaaaHotelModel.Quitance">
+              <MappingFragment StoreEntitySet="Quitance">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idNumber" ColumnName="idNumber" />
+                <ScalarProperty Name="idClient" ColumnName="idClient" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SummaryTable">
+            <EntityTypeMapping TypeName="aaaaHotelModel.SummaryTable">
+              <MappingFragment StoreEntitySet="SummaryTable">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idNumber" ColumnName="idNumber" />
+                <ScalarProperty Name="idClient" ColumnName="idClient" />
+                <ScalarProperty Name="dateEnd" ColumnName="dateEnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="aaaaHotelModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
