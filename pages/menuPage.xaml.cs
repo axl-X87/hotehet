@@ -33,6 +33,11 @@ namespace hotehet.pages
 
         private void create_new_password_Click(object sender, RoutedEventArgs e)
         {
+            naviClass.mainF.Navigate(new pages.setNewPassword_page());
+        }
+
+        private void exitToauth_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

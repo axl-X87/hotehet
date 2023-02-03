@@ -56,6 +56,7 @@ namespace hotehet
                     auth_window auth = new auth_window();
                     auth.Show();
                     this.Close();
+
                 }
             }
             catch

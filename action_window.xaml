@@ -11,7 +11,23 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-        <Frame Name="menu_frame" NavigationUIVisibility="hidden" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+            <Frame Name="menu_frame" NavigationUIVisibility="hidden" />
         <Frame Grid.Column="1" Name="main_frame" NavigationUIVisibility="hidden"/>
+        <Button Name="exitToauth" Click="exitToauth_Click" Grid.Row="1" Content="выйти"
+                Height="30"
+                Width="190"
+                Background="Black"
+                Foreground="white"
+                FontFamily="Lucida Console"
+                BorderBrush="white"
+                BorderThickness="3"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                HorizontalAlignment="left"
+                />
     </Grid>
 </Window>

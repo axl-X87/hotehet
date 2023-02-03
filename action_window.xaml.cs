@@ -30,5 +30,12 @@ namespace hotehet
             naviClass.mainF = main_frame;
            
         }
+
+        private void exitToauth_Click(object sender, RoutedEventArgs e)
+        {
+            auth_window a = new auth_window();
+            a.Show();
+            this.Close();
+        }
     }
 }

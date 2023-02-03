@@ -31,12 +31,14 @@ namespace hotehet.pages
             var usr = conDB.cont.Client.Where(io => io.email == email_tb.Text).FirstOrDefault();
             if (usr != null)
             {
-                conDB.cont.Client.Remove(usr);
+                usr.zachem = null;
+                conDB.cont.SaveChanges();
                 MessageBox.Show("пароль успешно удален");
+                naviClass.mainF.Navigate(new pages.setNewPassword_page());
             }
             else
             {
-                MessageBox.Show("пароль успешно не удален");
+                MessageBox.Show("пароль успешно НЕ удален");
             }
             
 

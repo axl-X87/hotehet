@@ -136,6 +136,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="pages\setNewPassword_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="pages\actionPage.xaml.cs">
@@ -145,6 +149,9 @@
       <DependentUpon>menuPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="pages\naviClass.cs" />
+    <Compile Include="pages\setNewPassword_page.xaml.cs">
+      <DependentUpon>setNewPassword_page.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

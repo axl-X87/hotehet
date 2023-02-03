@@ -15,23 +15,28 @@
         </Grid.RowDefinitions>
         <Button Name="delete_password" Click="delete_password_Click" Content="удалить пароль"
                 Height="50"
-                Width="200"
+                Width="170"
                 Background="Black"
                 Foreground="white"
                 FontFamily="Lucida Console"
                 BorderBrush="white"
                 BorderThickness="3"
                 VerticalContentAlignment="Center"
-                HorizontalContentAlignment="Center"/>
+                HorizontalContentAlignment="Center"
+                HorizontalAlignment="left"
+                Margin="10 0 0 0"/>
         <Button Name="create_new_password" Click="create_new_password_Click" Grid.Row="1" Content="сменить пароль"
                 Height="50"
-                Width="200"
+                Width="170"
                 Background="Black"
                 Foreground="white"
                 FontFamily="Lucida Console"
                 BorderBrush="white"
                 BorderThickness="3"
                 VerticalContentAlignment="Center"
-                HorizontalContentAlignment="Center"/>
+                HorizontalContentAlignment="Center"
+                HorizontalAlignment="left"
+                Margin="10 0 0 0"/>
+        
     </Grid>
 </Page>
