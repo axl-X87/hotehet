@@ -36,9 +36,9 @@ namespace hotehet.pages
             naviClass.mainF.Navigate(new pages.setNewPassword_page());
         }
 
-        private void exitToauth_Click(object sender, RoutedEventArgs e)
+        private void replacePageBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            naviClass.mainF.Navigate(new pages.createNewRecord_page());
         }
     }
 }

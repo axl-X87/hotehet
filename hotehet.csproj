@@ -132,6 +132,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="pages\createNewRecord_page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="pages\menuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +148,9 @@
   <ItemGroup>
     <Compile Include="pages\actionPage.xaml.cs">
       <DependentUpon>actionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\createNewRecord_page.xaml.cs">
+      <DependentUpon>createNewRecord_page.xaml</DependentUpon>
     </Compile>
     <Compile Include="pages\menuPage.xaml.cs">
       <DependentUpon>menuPage.xaml</DependentUpon>
