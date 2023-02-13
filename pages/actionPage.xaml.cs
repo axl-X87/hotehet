@@ -33,12 +33,12 @@ namespace hotehet.pages
             {
                 usr.zachem = null;
                 conDB.cont.SaveChanges();
-                MessageBox.Show("пароль успешно удален");
+                MessageBox.Show("Инструкция для смены пароля отправлена на электронную почту! Пожалуйста, перейдите по ссылке в вашем почтовом ящике для удаления пароля", "", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                 naviClass.mainF.Navigate(new pages.setNewPassword_page());
             }
             else
             {
-                MessageBox.Show("пароль успешно НЕ удален");
+                MessageBox.Show("Данная почта не зарегистрирована в приожении. Пожалуйства, проверьте введённые вами данные", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
 
